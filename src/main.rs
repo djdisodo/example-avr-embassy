@@ -1,7 +1,6 @@
 #![no_std]
 #![no_main]
 #![feature(type_alias_impl_trait, future_join, abi_avr_interrupt)]
-
 use core::fmt::Write;
 use core::panic::PanicInfo;
 use arduino_hal::{DefaultClock};
@@ -11,6 +10,7 @@ use embassy_executor::Spawner;
 use embassy_sync::blocking_mutex::raw::CriticalSectionRawMutex;
 use embassy_sync::mutex::Mutex;
 use ufmt::uWrite;
+
 static SERIAL: Mutex<CriticalSectionRawMutex, Option<atmega_hal::usart::Usart0<DefaultClock>>> = Mutex::new(None);
 #[embassy_executor::task]
 async fn serial_print_a_every1sec() {
@@ -31,9 +31,12 @@ async fn serial_print_b_every2sec() {
 async fn serial_print_c_often() {
     loop {
         embassy_time::Timer::after_millis(200).await;
-        SERIAL.lock().await.as_mut().unwrap().write_str("task \"c\" will print every 200 millis\r\n").unwrap();
+        SERIAL.lock().await.as_mut().unwrap().write_str("task c will print every 200ms\r\n").unwrap();
     }
 }
+
+
+define_interrupt!(atmega328p);
 
 #[embassy_executor::main]
 async fn main(spawner: Spawner) {
@@ -47,7 +50,6 @@ async fn main(spawner: Spawner) {
     spawner.spawn(serial_print_c_often()).unwrap();
 }
 
-define_interrupt!(atmega328p);
 
 #[panic_handler]
 fn panic(info: &PanicInfo) -> ! {

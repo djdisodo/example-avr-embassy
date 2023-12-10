@@ -89,12 +89,14 @@ dependencies = [
 [[package]]
 name = "avr_tc0_embassy_time"
 version = "0.1.0"
+source = "git+https://github.com/djdisodo/avr_tc0_embassy_time.git?rev=895cd3f10ace7ec4af247fe807e3bb9b9da40123#895cd3f10ace7ec4af247fe807e3bb9b9da40123"
 dependencies = [
  "arraydeque",
  "atmega-hal",
  "avr-device",
  "avr-hal-generic",
  "embassy-time",
+ "env_int",
  "futures-util",
  "static_assertions",
 ]
@@ -165,6 +167,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "derive-syn-parse"
+version = "0.1.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e79116f119dd1dba1abf1f3405f03b9b0e79a27a3883864bfebded8a3dc768cd"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 1.0.109",
+]
+
+[[package]]
 name = "embassy-executor"
 version = "0.4.0"
 dependencies = [
@@ -223,6 +236,37 @@ name = "embedded-storage"
 version = "0.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "723dce4e9f25b6e6c5f35628e144794e5b459216ed7da97b7c4b66cdb3fa82ca"
+
+[[package]]
+name = "env_int"
+version = "0.1.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "56770c6e9d29045810de45b3de328902245dd4834f35283b587a63951ab5e975"
+dependencies = [
+ "derive-syn-parse",
+ "proc-macro2",
+ "quote",
+ "syn 2.0.39",
+]
+
+[[package]]
+name = "example-avr-embassy"
+version = "0.1.0"
+dependencies = [
+ "arduino-hal",
+ "atmega-hal",
+ "avr-hal-generic",
+ "avr_tc0_embassy_time",
+ "embassy-executor",
+ "embassy-sync",
+ "embassy-time",
+ "embedded-hal",
+ "itoa",
+ "nb 0.1.3",
+ "portable-atomic",
+ "ufmt 0.2.0",
+ "vcell",
+]
 
 [[package]]
 name = "fnv"
@@ -495,24 +539,6 @@ name = "unicode-ident"
 version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
-
-[[package]]
-name = "unolcd"
-version = "0.1.0"
-dependencies = [
- "arduino-hal",
- "atmega-hal",
- "avr-hal-generic",
- "avr_tc0_embassy_time",
- "embassy-executor",
- "embassy-sync",
- "embassy-time",
- "embedded-hal",
- "itoa",
- "nb 0.1.3",
- "portable-atomic",
- "ufmt 0.2.0",
-]
 
 [[package]]
 name = "vcell"

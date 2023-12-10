@@ -6,3 +6,5 @@ runner = "ravedude uno -cb 57600"
 
 [unstable]
 build-std = ["core", "alloc"]
+build-std-features = ["panic_immediate_abort"]
+
